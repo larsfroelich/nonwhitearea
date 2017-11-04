@@ -18,7 +18,7 @@
   "homepage": "https://github.com/xlfpx/nonwhitearea#readme",
   "preferGlobal": true,
   "bin": {
-    "nonwhitearea": "index.js"
+    "nonwhitearea": "node index.js"
   },
   "engines": {
     "node": ">=7.0.0"

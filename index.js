@@ -17,7 +17,8 @@ global.main_menu = function() {
         name: "action",
         choices: [
             "1) Test settings on test-image",
-            "2) Generate areas on a set of images"
+            "2) Generate areas on a set of images",
+            "3) Exit"
         ]
     }]).then(function (result) {
         if (result.action.charAt(0) === '1') {
@@ -100,4 +101,6 @@ global.main_menu = function() {
         }
     });
 };
-global.main_menu();
+require(global.ROOT_DIR + "/lib/splash_screen")(c).then(function () {
+    global.main_menu();
+});

@@ -98,6 +98,8 @@ global.main_menu = function() {
                     });
                 });
             });
+        }else{
+            console.log('\x1Bc'); // EXIT
         }
     });
 };

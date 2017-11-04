@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 global.ROOT_DIR = __dirname;
 const c = require('chalk');
 const i = require('inquirer');

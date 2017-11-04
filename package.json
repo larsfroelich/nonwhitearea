@@ -1,0 +1,33 @@
+{
+  "name": "nonwhitearea",
+  "version": "0.0.0",
+  "description": "Calculates the area of non-white space in a set of images",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xlfpx/nonwhitearea.git"
+  },
+  "author": "Lars Froelich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xlfpx/nonwhitearea/issues"
+  },
+  "homepage": "https://github.com/xlfpx/nonwhitearea#readme",
+  "preferGlobal": true,
+  "bin": {
+    "nonwhitearea": "index.js"
+  },
+  "engines": {
+    "node": ">=7.0.0"
+  },
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "fs-extra": "^4.0.2",
+    "inquirer": "^3.3.0",
+    "jimp": "^0.2.28",
+    "progress-bar-formatter": "^2.0.1"
+  }
+}

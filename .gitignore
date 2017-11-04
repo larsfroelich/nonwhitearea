@@ -57,3 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+*.bmp
+*.jpg
+.idea/
+nowhitearea.json

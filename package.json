@@ -1,6 +1,6 @@
 {
   "name": "nonwhitearea",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Calculates the area of non-white space in a set of images",
   "main": "index.js",
   "scripts": {

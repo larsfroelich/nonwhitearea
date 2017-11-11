@@ -1,12 +1,26 @@
 #!/usr/bin/env node
 
 global.ROOT_DIR = process.cwd();
+const pkg = require('./package.json');
+const updateNotifier = require('update-notifier')({pkg});
 const c = require('chalk');
 const i = require('inquirer');
 const fs = require("fs-extra");
 const jimp = require("jimp");
 var prog = require('progress-bar-formatter');
 require(__dirname + "/walkDir.js");
+
+if(updateNotifier.update){
+    updateNotifier.notify({defer:false}); // display plz-update notification message
+    setTimeout(main, 5000); // start after 5 seconds
+}else{
+    main(); // up to date - start right away
+}
+function main(){
+    require(global.ROOT_DIR + "/lib/splash_screen")(c).then(function () {
+        global.main_menu();
+    });
+}
 
 global.main_menu = function() {
     console.log('\x1Bc');
@@ -102,6 +116,3 @@ global.main_menu = function() {
         }
     });
 };
-require(global.ROOT_DIR + "/lib/splash_screen")(c).then(function () {
-    global.main_menu();
-});

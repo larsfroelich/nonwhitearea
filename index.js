@@ -11,7 +11,7 @@ var prog = require('progress-bar-formatter');
 require(__dirname + "/walkDir.js");
 
 if(updateNotifier.update){
-    updateNotifier.notify({defer:false}); // display plz-update notification message
+    updateNotifier.notify({defer:false, isGlobal:true}); // display plz-update notification message
     setTimeout(main, 5000); // start after 5 seconds
 }else{
     main(); // up to date - start right away

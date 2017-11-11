@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 global.ROOT_DIR = process.cwd();
+global.INSTALL_DIR = __dirname;
 const pkg = require('./package.json');
 const updateNotifier = require('update-notifier')({pkg});
 const c = require('chalk');
@@ -17,7 +18,7 @@ if(updateNotifier.update){
     main(); // up to date - start right away
 }
 function main(){
-    require(global.ROOT_DIR + "/lib/splash_screen")(c).then(function () {
+    require(global.INSTALL_DIR + "/lib/splash_screen")(c).then(function () {
         global.main_menu();
     });
 }
@@ -35,13 +36,13 @@ global.main_menu = function() {
         ]
     }]).then(function (result) {
         if (result.action.charAt(0) === '1') {
-            require(global.ROOT_DIR + "/lib/get_image")(c, i,
+            require(global.INSTALL_DIR + "/lib/get_image")(c, i,
                 "Choose an image to test your settings on").then(function (test_img_path) {
-                require(global.ROOT_DIR + "/lib/get_settings")(c, i).then(function (settings) {
+                require(global.INSTALL_DIR + "/lib/get_settings")(c, i).then(function (settings) {
                     console.log('\x1Bc');
                     console.log("\nProcessing image...");
                     var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(test_img_path)[1];
-                    require(global.ROOT_DIR + "/lib/process_image")(global.ROOT_DIR + test_img_path, settings, filename).then(function (amount_black_pixels) {
+                    require(global.INSTALL_DIR + "/lib/process_image")(global.ROOT_DIR + test_img_path, settings, filename).then(function (amount_black_pixels) {
                         console.log(c.green("\nImage processed!"));
                         console.log("(" + amount_black_pixels + " dark pixels detected)");
                         console.log("Output can be found in \"" + global.ROOT_DIR + test_img_path + "\"");
@@ -50,13 +51,13 @@ global.main_menu = function() {
                 });
             });
         } else if (result.action.charAt(0) === '2') {
-            require(global.ROOT_DIR + "/lib/get_settings")(c, i).then(function (settings) {
-                require(global.ROOT_DIR + "/lib/get_image")(c, i,
+            require(global.INSTALL_DIR + "/lib/get_settings")(c, i).then(function (settings) {
+                require(global.INSTALL_DIR + "/lib/get_image")(c, i,
                     "Choose a calibration-image containing a standard one-unit-large dark area for calibration").then(function (calib_img_path) {
                     console.log('\x1Bc');
                     console.log("\nCalculating calibration size...");
                     var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(calib_img_path)[1];
-                    require(global.ROOT_DIR + "/lib/process_image")(global.ROOT_DIR + calib_img_path, settings, filename).then(function (calibration_pixels) {
+                    require(global.INSTALL_DIR + "/lib/process_image")(global.ROOT_DIR + calib_img_path, settings, filename).then(function (calibration_pixels) {
                         console.log(c.green("Calibration image processed! (" + calibration_pixels + " dark pixels detected)"));
                         setTimeout(function(){
                             console.log('\x1Bc');
@@ -87,7 +88,7 @@ global.main_menu = function() {
                                         return new Promise(function(resolve, reject){
                                             var file_path = files.shift();
                                             var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(file_path)[1];
-                                            require(global.ROOT_DIR + "/lib/process_image")(global.ROOT_DIR + file_path, settings, filename).then(function (dark_pixels) {
+                                            require(global.INSTALL_DIR + "/lib/process_image")(global.ROOT_DIR + file_path, settings, filename).then(function (dark_pixels) {
                                                 arearesults[filename] = dark_pixels / calibration_pixels;
                                                 currentProgress++;
                                                 updateProgressBar(filename);

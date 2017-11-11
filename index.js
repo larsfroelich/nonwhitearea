@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-global.ROOT_DIR = __dirname;
+global.ROOT_DIR = process.cwd();
 const c = require('chalk');
 const i = require('inquirer');
 const fs = require("fs-extra");
 const jimp = require("jimp");
 var prog = require('progress-bar-formatter');
 require(__dirname + "/walkDir.js");
-var ui = new i.ui.BottomBar();
 
 global.main_menu = function() {
     console.log('\x1Bc');

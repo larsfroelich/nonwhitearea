@@ -2,7 +2,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-require('../walkDir');
+const walkDirectory = require('../walkDir');
 
 describe('walkDirectory', () => {
   let tmpDir;
@@ -19,12 +19,12 @@ describe('walkDirectory', () => {
   });
 
   test('depth 1 returns top level entries', () => {
-    const files = global.walkDirectory(tmpDir, '', 1).sort();
+    const files = walkDirectory(tmpDir, '', 1).sort();
     expect(files).toEqual(['/root.txt', '/sub'].sort());
   });
 
   test('depth 2 returns nested files', () => {
-    const files = global.walkDirectory(tmpDir, '', 2).sort();
+    const files = walkDirectory(tmpDir, '', 2).sort();
     expect(files).toEqual(['/root.txt', '/sub/subfile.txt'].sort());
   });
 });

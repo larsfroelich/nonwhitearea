@@ -40,7 +40,7 @@ function main_menu() {
     }]).then(function (result) {
         if (result.action.charAt(0) === '1') {
             require(path.join(installDir, 'lib', 'get_image'))(c, i,
-                "Choose an image to test your settings on").then(function (test_img_path) {
+                "Choose an image to test your settings on", context).then(function (test_img_path) {
                 require(path.join(installDir, 'lib', 'get_settings'))(c, i).then(function (settings) {
                     console.log('\x1Bc');
                     console.log("\nProcessing image...");
@@ -56,7 +56,7 @@ function main_menu() {
         } else if (result.action.charAt(0) === '2') {
             require(path.join(installDir, 'lib', 'get_settings'))(c, i).then(function (settings) {
                 require(path.join(installDir, 'lib', 'get_image'))(c, i,
-                    "Choose a calibration-image containing a standard one-unit-large dark area for calibration").then(function (calib_img_path) {
+                    "Choose a calibration-image containing a standard one-unit-large dark area for calibration", context).then(function (calib_img_path) {
                     console.log('\x1Bc');
                     console.log("\nCalculating calibration size...");
                     var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(calib_img_path)[1];

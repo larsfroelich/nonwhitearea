@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const path = require('path');
 const rootDir = process.cwd();
 const installDir = __dirname;
 const pkg = require('./package.json');
@@ -9,7 +10,7 @@ const i = require('inquirer');
 const fs = require("fs-extra");
 const jimp = require("jimp");
 var prog = require('progress-bar-formatter');
-const walkDirectory = require(__dirname + "/walkDir.js");
+const walkDirectory = require(path.join(__dirname, 'walkDir.js'));
 
 const context = { rootDir, installDir, walkDirectory };
 
@@ -20,7 +21,7 @@ if(updateNotifier.update){
     main(); // up to date - start right away
 }
 function main(){
-    require(installDir + "/lib/splash_screen")(c).then(function () {
+    require(path.join(installDir, 'lib', 'splash_screen'))(c).then(function () {
         main_menu();
     });
 }
@@ -38,28 +39,28 @@ function main_menu() {
         ]
     }]).then(function (result) {
         if (result.action.charAt(0) === '1') {
-            require(installDir + "/lib/get_image")(c, i,
+            require(path.join(installDir, 'lib', 'get_image'))(c, i,
                 "Choose an image to test your settings on").then(function (test_img_path) {
-                require(installDir + "/lib/get_settings")(c, i).then(function (settings) {
+                require(path.join(installDir, 'lib', 'get_settings'))(c, i).then(function (settings) {
                     console.log('\x1Bc');
                     console.log("\nProcessing image...");
                     var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(test_img_path)[1];
-                    require(installDir + "/lib/process_image")(context.rootDir, context.rootDir + test_img_path, settings, filename).then(function (amount_black_pixels) {
+                    require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, context.rootDir + test_img_path, settings, filename).then(function (amount_black_pixels) {
                         console.log(c.green("\nImage processed!"));
                         console.log("(" + amount_black_pixels + " dark pixels detected)");
-                        console.log("Output can be found in \"" + context.rootDir + test_img_path + "\"");
+                        console.log("Output can be found in \"" + path.join(context.rootDir, test_img_path.replace(/^\//, '')) + "\"");
                         setTimeout(main_menu, 4500);
                     });
                 });
             });
         } else if (result.action.charAt(0) === '2') {
-            require(installDir + "/lib/get_settings")(c, i).then(function (settings) {
-                require(installDir + "/lib/get_image")(c, i,
+            require(path.join(installDir, 'lib', 'get_settings'))(c, i).then(function (settings) {
+                require(path.join(installDir, 'lib', 'get_image'))(c, i,
                     "Choose a calibration-image containing a standard one-unit-large dark area for calibration").then(function (calib_img_path) {
                     console.log('\x1Bc');
                     console.log("\nCalculating calibration size...");
                     var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(calib_img_path)[1];
-                    require(installDir + "/lib/process_image")(context.rootDir, context.rootDir + calib_img_path, settings, filename).then(function (calibration_pixels) {
+                    require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, context.rootDir + calib_img_path, settings, filename).then(function (calibration_pixels) {
                         console.log(c.green("Calibration image processed! (" + calibration_pixels + " dark pixels detected)"));
                         setTimeout(function(){
                             console.log('\x1Bc');
@@ -90,7 +91,7 @@ function main_menu() {
                                         return new Promise(function(resolve, reject){
                                             var file_path = files.shift();
                                             var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(file_path)[1];
-                                            require(installDir + "/lib/process_image")(context.rootDir, context.rootDir + file_path, settings, filename).then(function (dark_pixels) {
+                                            require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, context.rootDir + file_path, settings, filename).then(function (dark_pixels) {
                                                 arearesults[filename] = dark_pixels / calibration_pixels;
                                                 currentProgress++;
                                                 updateProgressBar(filename);
@@ -103,7 +104,7 @@ function main_menu() {
                                     }
                                     processNextImg().then(function(){
                                         console.log(c.green("\n\n All files processed!"));
-                                        fs.writeJsonSync(context.rootDir + "/nonwhitearea.json", arearesults);
+                                        fs.writeJsonSync(path.join(context.rootDir, 'nonwhitearea.json'), arearesults);
                                         setTimeout(main_menu, 5000);
                                     });
                                 }else{

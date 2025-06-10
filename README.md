@@ -28,3 +28,7 @@ Processed images are written to a `nonwhitearea_output` directory. After all
 images have been processed, a `nowhitearea.json` file is created in your
 current working directory. This JSON maps each filename to the calculated dark
 area relative to the calibration image.
+
+## Requirements
+
+* Node.js 14 or newer

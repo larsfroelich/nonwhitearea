@@ -32,3 +32,11 @@ area relative to the calibration image.
 ## Requirements
 
 * Node.js 14 or newer
+
+## Development
+
+Run the test suite with Node's built-in test runner:
+
+```bash
+npm test
+```

@@ -7,7 +7,7 @@ const pkg = require('./package.json');
 const updateNotifier = require('update-notifier')({pkg});
 const c = require('chalk');
 const i = require('inquirer');
-const fs = require("fs-extra");
+const fs = require('fs');
 const jimp = require("jimp");
 var prog = require('progress-bar-formatter');
 const walkDirectory = require(path.join(__dirname, 'walkDir.js'));
@@ -104,7 +104,10 @@ function main_menu() {
                                     }
                                     processNextImg().then(function(){
                                         console.log(c.green("\n\n All files processed!"));
-                                        fs.writeJsonSync(path.join(context.rootDir, 'nonwhitearea.json'), arearesults);
+                                        fs.writeFileSync(
+                                            path.join(context.rootDir, 'nonwhitearea.json'),
+                                            JSON.stringify(arearesults, null, 2)
+                                        );
                                         setTimeout(main_menu, 5000);
                                     });
                                 }else{

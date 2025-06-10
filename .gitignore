@@ -60,4 +60,4 @@ typings/
 *.bmp
 *.jpg
 .idea/
-nowhitearea.json
+nonwhitearea.json

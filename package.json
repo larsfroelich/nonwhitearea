@@ -21,13 +21,13 @@
     "nonwhitearea": "index.js"
   },
   "engines": {
-    "node": ">=7.0.0"
+    "node": ">=14.0.0"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
-    "fs-extra": "^4.0.2",
-    "inquirer": "^3.3.0",
-    "jimp": "^0.2.28",
+    "chalk": "^4.1.2",
+    "fs-extra": "^10.1.0",
+    "inquirer": "^8.2.5",
+    "jimp": "^0.22.10",
     "progress-bar-formatter": "^2.0.1",
     "update-notifier": "^2.3.0"
   }

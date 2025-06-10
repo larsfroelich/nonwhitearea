@@ -45,7 +45,7 @@ function main_menu() {
                     console.log('\x1Bc');
                     console.log("\nProcessing image...");
                     var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(test_img_path)[1];
-                    require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, context.rootDir + test_img_path, settings, filename).then(function (amount_black_pixels) {
+                    require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, path.join(context.rootDir, test_img_path), settings, filename).then(function (amount_black_pixels) {
                         console.log(c.green("\nImage processed!"));
                         console.log("(" + amount_black_pixels + " dark pixels detected)");
                         console.log("Output can be found in \"" + path.join(context.rootDir, test_img_path.replace(/^\//, '')) + "\"");
@@ -60,7 +60,7 @@ function main_menu() {
                     console.log('\x1Bc');
                     console.log("\nCalculating calibration size...");
                     var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(calib_img_path)[1];
-                    require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, context.rootDir + calib_img_path, settings, filename).then(function (calibration_pixels) {
+                    require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, path.join(context.rootDir, calib_img_path), settings, filename).then(function (calibration_pixels) {
                         console.log(c.green("Calibration image processed! (" + calibration_pixels + " dark pixels detected)"));
                         setTimeout(function(){
                             console.log('\x1Bc');
@@ -91,7 +91,7 @@ function main_menu() {
                                         return new Promise(function(resolve, reject){
                                             var file_path = files.shift();
                                             var filename = /.*\/([^\/]*\.[^\.]*)$/.exec(file_path)[1];
-                                            require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, context.rootDir + file_path, settings, filename).then(function (dark_pixels) {
+                                            require(path.join(installDir, 'lib', 'process_image'))(context.rootDir, path.join(context.rootDir, file_path), settings, filename).then(function (dark_pixels) {
                                                 arearesults[filename] = dark_pixels / calibration_pixels;
                                                 currentProgress++;
                                                 updateProgressBar(filename);

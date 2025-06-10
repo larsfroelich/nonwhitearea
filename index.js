@@ -101,7 +101,7 @@ global.main_menu = function() {
                                     }
                                     processNextImg().then(function(){
                                         console.log(c.green("\n\n All files processed!"));
-                                        fs.writeJsonSync(global.ROOT_DIR + "/nowhitearea.json", arearesults);
+                                        fs.writeJsonSync(global.ROOT_DIR + "/nonwhitearea.json", arearesults);
                                         setTimeout(global.main_menu, 5000);
                                     });
                                 }else{

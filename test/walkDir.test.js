@@ -1,11 +1,18 @@
+const test = require('node:test');
+const assert = require('node:assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
 const walkDirectory = require('../walkDir');
 
-describe('walkDirectory', () => {
-  let tmpDir;
+function setupTempDir() {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'walkdir-'));
+  fs.writeFileSync(path.join(tmpDir, 'root.txt'), 'root');
+  fs.mkdirSync(path.join(tmpDir, 'sub'));
+  fs.writeFileSync(path.join(tmpDir, 'sub', 'subfile.txt'), 'sub');
+  return tmpDir;
+}
 
   beforeEach(() => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'walkdir-'));
@@ -28,3 +35,4 @@ describe('walkDirectory', () => {
     expect(files).toEqual(['/root.txt', '/sub/subfile.txt'].sort());
   });
 });
+

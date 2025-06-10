@@ -1,3 +1,5 @@
+const test = require('node:test');
+const assert = require('node:assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -42,3 +44,4 @@ describe('process_image', () => {
     fs.rmSync(tmpdir, { recursive: true, force: true });
   });
 });
+

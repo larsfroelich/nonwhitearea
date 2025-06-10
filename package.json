@@ -4,7 +4,7 @@
   "description": "Calculates the area of non-white space in a set of images",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,5 @@
     "progress-bar-formatter": "^2.0.1",
     "update-notifier": "^2.3.0"
   },
-  "devDependencies": {
-    "jest": "^29.7.0"
-  }
+  "devDependencies": {}
 }
